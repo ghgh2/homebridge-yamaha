@@ -216,7 +216,7 @@ YamahaAVRAccessory.prototype = {
                 if (that.setMainInputTo) return yamaha.setMainInputTo(that.setMainInputTo);
                 else return Q();
             }).then(function(){
-                if (that.setHDMIOutput) return yamaha.setHDMIOutput(that.setHDMIOutput, true);
+                if (that.setHDMIOutput) return yamaha.SendXMLToReceiver('<YAMAHA_AV cmd="PUT"><System><Sound_Video><HDMI><Output><OUT_' + that.setHDMIOutput + '>On</OUT_' + that.setHDMIOutput + '></Output></HDMI></Sound_Video></System></YAMAHA_AV>');
                 else return Q();
             }).then(function(){
                 if (that.setMainInputTo == "AirPlay") return yamaha.SendXMLToReceiver(
