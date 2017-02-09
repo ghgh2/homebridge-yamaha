@@ -62,6 +62,7 @@ function YamahaAVRPlatform(log, config){
     this.maxVolume = config["max_volume"] || -20.0;
     this.gapVolume = this.maxVolume - this.minVolume;
     this.setMainInputTo = config["setMainInputTo"];
+    this.setHDMIOutput = config["setHDMIOutput"];
     this.expectedDevices = config["expected_devices"] || 100;
     this.discoveryTimeout = config["discovery_timeout"] || 30;
     this.manualAddresses = config["manual_addresses"] || {};
@@ -193,6 +194,7 @@ function YamahaAVRAccessory(log, config, name, yamaha, sysConfig) {
     this.name = name;
     this.serviceName = name + this.nameSuffix;
     this.setMainInputTo = config["setMainInputTo"];
+    this.setHDMIOutput = config["setHDMIOutput"];
     this.playVolume = this.config["play_volume"];
     this.minVolume = config["min_volume"] || -50.0;
     this.maxVolume = config["max_volume"] || -20.0;
@@ -212,6 +214,9 @@ YamahaAVRAccessory.prototype = {
                 else return Q();
             }).then(function(){
                 if (that.setMainInputTo) return yamaha.setMainInputTo(that.setMainInputTo);
+                else return Q();
+            }).then(function(){
+                if (that.setHDMIOutput) return yamaha.setHDMIOutput(that.setHDMIOutput, true);
                 else return Q();
             }).then(function(){
                 if (that.setMainInputTo == "AirPlay") return yamaha.SendXMLToReceiver(
